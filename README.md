@@ -1,4 +1,4 @@
-# Project
+# KK - Planner
 #### Welcome if you want to try the app you can test the demo here 🔥🔥🔥:
 (https://kk-scheduler.web.app/) 
 
