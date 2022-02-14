@@ -22,7 +22,7 @@ const Nav = () => {
               </Button>
             ) : (
               <Button variant="secondary" onClick={googleLogin}>
-                <i className="bx bxl-google-plus-circle"></i> Logout
+                <i className="bx bxl-google-plus-circle"></i> Login
               </Button>
             )}
           </Navbar.Text>
