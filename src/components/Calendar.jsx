@@ -36,14 +36,13 @@ const MyCalendar = () => {
 
   useEffect(() => {
     const unsubscribe = onSnapshot(agendaDocs, (doc) => {
-      const newEvents = [];
-
-      doc.docs.map((doc) => {
+      const newEvents = doc.docs.map((doc) => {
         let events = doc.data();
         events.start = events.start.toDate();
         events.end = events.end.toDate();
-        newEvents.push(events);
+        return events;
       });
+
       setEvents(newEvents);
     });
 
