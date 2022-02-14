@@ -1,6 +1,6 @@
 import { useState, useRef } from "react";
 import { Form, Modal, Button } from "react-bootstrap";
-import { addDoc } from "firebase/firestore";
+import { addDoc, Timestamp } from "firebase/firestore";
 import { agendaDocs } from "../utils/firebase";
 
 const DataForm = () => {
@@ -15,16 +15,16 @@ const DataForm = () => {
   const saveChanges = async () => {
     const data = {
       title: titleRef.current.value,
-      start: startDateRef.current.value,
-      end: Date(endDateRef.current.value),
-      desc: Date(descRef.current.value),
+      start: new Date(startDateRef.current.value),
+      end: new Date(endDateRef.current.value),
+      desc: descRef.current.value,
     };
 
     try {
       const docRef = await addDoc(agendaDocs, {
         title: data.title,
-        start: data.start,
-        end: data.end,
+        start: Timestamp.fromDate(data.start).toDate(),
+        end: Timestamp.fromDate(data.end).toDate(),
         desc: data.desc,
       });
 
