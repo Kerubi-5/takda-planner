@@ -1,6 +1,9 @@
 import { Navbar, Container, Button } from "react-bootstrap";
+import { useAuth } from "../contexts/AuthContext";
 import notebookImg from "../assets/notebook.png";
 const Nav = () => {
+  const { user, googleLogin, logout } = useAuth();
+
   return (
     <Navbar bg="light" variant="light">
       <Container>
@@ -13,9 +16,15 @@ const Nav = () => {
         <Navbar.Toggle />
         <Navbar.Collapse className="justify-content-end">
           <Navbar.Text>
-            <Button variant="secondary">
-              <i className="bx bxl-google-plus-circle"></i> Login
-            </Button>
+            {user ? (
+              <Button variant="danger" onClick={logout}>
+                <i className="bx bx-exit"></i> Logout
+              </Button>
+            ) : (
+              <Button variant="secondary" onClick={googleLogin}>
+                <i className="bx bxl-google-plus-circle"></i> Logout
+              </Button>
+            )}
           </Navbar.Text>
         </Navbar.Collapse>
       </Container>
