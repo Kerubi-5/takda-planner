@@ -2,10 +2,20 @@
 
 * {
   font-family: "Montserrat", sans-serif;
+  scroll-behavior: smooth;
 }
 
 body {
   margin: 0;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+}
+
+.section__desc {
+  color: #606060;
+}
+
+#header-img {
+  width: 100%;
+  height: 100%;
 }
