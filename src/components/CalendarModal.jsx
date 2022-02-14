@@ -25,7 +25,7 @@ const CalendarModal = ({ show, setShow, item }) => {
               <Form.Control type="text" value={item?.end} readOnly />
             </FloatingLabel>
             <FloatingLabel label="Description" className="mb-3">
-              <Form.Control type="text" value={item?.description} readOnly />
+              <Form.Control type="text" value={item?.desc} readOnly />
             </FloatingLabel>
           </Modal.Body>
         )}
