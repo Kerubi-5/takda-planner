@@ -9,10 +9,13 @@ import enUS from "date-fns/locale/en-US";
 import "react-big-calendar/lib/css/react-big-calendar.css";
 import CalendarModal from "./CalendarModal";
 
-import { onSnapshot } from "firebase/firestore";
+import { onSnapshot, query, where } from "firebase/firestore";
 import { agendaDocs } from "../utils/firebase";
+import { useAuth } from "../contexts/AuthContext";
 
 const MyCalendar = () => {
+  const { user } = useAuth();
+
   const [events, setEvents] = useState();
   const [show, setShow] = useState(false);
   const [modalData, setModalData] = useState();
@@ -35,7 +38,8 @@ const MyCalendar = () => {
   });
 
   useEffect(() => {
-    const unsubscribe = onSnapshot(agendaDocs, (doc) => {
+    const userQuery = query(agendaDocs, where("uid", "==", user.uid));
+    const unsubscribe = onSnapshot(userQuery, (doc) => {
       const newEvents = doc.docs.map((doc) => {
         let events = doc.data();
         events.start = events.start.toDate();
@@ -47,7 +51,7 @@ const MyCalendar = () => {
     });
 
     return unsubscribe;
-  }, []);
+  }, [user.uid]);
 
   return (
     <>
