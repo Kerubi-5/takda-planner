@@ -2,8 +2,11 @@ import { useState, useRef } from "react";
 import { Form, Modal, Button } from "react-bootstrap";
 import { addDoc, Timestamp } from "firebase/firestore";
 import { agendaDocs } from "../utils/firebase";
+import { useAuth } from "../contexts/AuthContext";
 
 const DataForm = () => {
+  const { user } = useAuth();
+
   const [show, setShow] = useState(false);
   const handleClose = () => setShow(false);
 
@@ -14,6 +17,7 @@ const DataForm = () => {
 
   const saveChanges = async () => {
     const data = {
+      uid: user.uid,
       title: titleRef.current.value,
       start: new Date(startDateRef.current.value),
       end: new Date(endDateRef.current.value),
@@ -22,6 +26,7 @@ const DataForm = () => {
 
     try {
       const docRef = await addDoc(agendaDocs, {
+        uid: data.uid,
         title: data.title,
         start: Timestamp.fromDate(data.start).toDate(),
         end: Timestamp.fromDate(data.end).toDate(),
