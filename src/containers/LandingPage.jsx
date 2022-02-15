@@ -79,14 +79,14 @@ const LandingPage = () => {
         </Container>
       </div>
 
-      <div className="container p-3 mt-5">
+      <div className="container mt-3 mb-3 p-3">
         <footer className="d-flex flex-wrap justify-content-between align-items-center py-3 my-4 border-top">
           <div className="col-md-4 d-flex align-items-center">
             <a
               href="/"
               className="mb-3 me-2 mb-md-0 text-muted text-decoration-none lh-1"
             >
-              <i className="bx bxs-notepad"></i>
+              <i className="bx bxs-notepad footer__icons"></i>
             </a>
             <span className="text-muted">© 2022 KK, Inc</span>
           </div>
@@ -98,7 +98,7 @@ const LandingPage = () => {
                 className="twitter-share-button"
                 data-show-count="false"
               >
-                Tweet
+                <i className="bx bxl-twitter footer__icons"></i>
               </a>
               <script
                 async
@@ -118,7 +118,7 @@ const LandingPage = () => {
                   className="fb-xfbml-parse-ignore"
                   rel="noreferrer"
                 >
-                  Facebook
+                  <i className="bx bxl-facebook-square footer__icons"></i>
                 </a>
               </div>
             </li>
