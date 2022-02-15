@@ -11,8 +11,17 @@ body {
   -moz-osx-font-smoothing: grayscale;
 }
 
-.section__desc {
-  color: #606060;
+.feature {
+  text-align: center;
+}
+
+.feature__icon {
+  font-size: 5rem;
+}
+
+.section__desc,
+.feature__desc {
+  color: #969696;
 }
 
 #header-img {
