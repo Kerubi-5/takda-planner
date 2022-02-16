@@ -2,7 +2,7 @@ import "bootstrap/dist/css/bootstrap.min.css";
 
 import { Routes, Route } from "react-router-dom";
 import { AuthProvider } from "./contexts/AuthContext";
-import AuthGuard from "./containers/AuthGuard";
+import ProtectedRoutes from "./containers/ProtectedRoutes";
 import AppBar from "./components/AppBar";
 import LandingPage from "./containers/LandingPage";
 import ErrorPage from "./containers/ErrorPage";
@@ -17,7 +17,7 @@ const App = () => {
 
         <Routes>
           <Route path="/" element={<LandingPage />} />
-          <Route element={<AuthGuard />}>
+          <Route element={<ProtectedRoutes />}>
             <Route path="/home" element={<Home />} />
             <Route path="/recipes" element={<Recipes />} />
           </Route>
