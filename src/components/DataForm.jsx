@@ -91,7 +91,12 @@ const DataForm = () => {
           </Button>
         </Modal.Footer>
       </Modal>
-      <Button className="m-3" variant="success" onClick={() => setShow(true)}>
+      <Button
+        style={{ float: "right" }}
+        className="m-3"
+        variant="success"
+        onClick={() => setShow(true)}
+      >
         <i className="bx bx-alarm-add"></i> ADD NEW PLAN
       </Button>
     </>
