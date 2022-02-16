@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import { Container, Table } from "react-bootstrap";
+import { Container, Table, Button } from "react-bootstrap";
 import { onSnapshot, query, where } from "firebase/firestore";
 import { recipeDocs } from "../utils/firebase";
 import { useAuth } from "../contexts/AuthContext";
@@ -30,7 +30,12 @@ const Recipes = () => {
 
   return (
     <Container className="mt-5">
-      <h1>Recipes</h1>
+      <div className="header">
+        <h1>Recipes</h1>
+        <Button variant="success">
+          <i className="bx bx-plus-medical"></i>
+        </Button>
+      </div>
       <Table striped bordered hover>
         <thead>
           <tr>
