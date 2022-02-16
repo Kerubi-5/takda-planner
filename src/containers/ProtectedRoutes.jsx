@@ -1,9 +1,9 @@
 import { useAuth } from "../contexts/AuthContext";
-import Loading from "./../components/Loading";
+import Loading from "../components/Loading";
 
 import { Outlet, Navigate } from "react-router-dom";
 
-const AuthGuard = () => {
+const ProtectedRoutes = () => {
   const { loading, user } = useAuth();
 
   if (loading) return <Loading />;
@@ -12,4 +12,4 @@ const AuthGuard = () => {
   else return <Navigate to="/" />;
 };
 
-export default AuthGuard;
+export default ProtectedRoutes;
