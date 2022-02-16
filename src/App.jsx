@@ -7,7 +7,7 @@ import AppBar from "./components/AppBar";
 import LandingPage from "./containers/LandingPage";
 import ErrorPage from "./containers/ErrorPage";
 import Home from "./containers/Home";
-import Recipes from "./containers/Recipes";
+import Ingredients from "./containers/Ingredients";
 
 const App = () => {
   return (
@@ -19,7 +19,7 @@ const App = () => {
           <Route path="/" element={<LandingPage />} />
           <Route element={<ProtectedRoutes />}>
             <Route path="/home" element={<Home />} />
-            <Route path="/recipes" element={<Recipes />} />
+            <Route path="/recipes" element={<Ingredients />} />
           </Route>
           <Route path="*" element={<ErrorPage />} />
         </Routes>

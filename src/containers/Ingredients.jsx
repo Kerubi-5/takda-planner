@@ -3,7 +3,7 @@ import { Container, Table } from "react-bootstrap";
 import { onSnapshot, query, where } from "firebase/firestore";
 import { recipeDocs } from "../utils/firebase";
 import { useAuth } from "../contexts/AuthContext";
-import RecipeModal from "../components/RecipeModal";
+import IngredientsModal from "../components/IngredientsModal";
 
 const Recipes = () => {
   const [lists, setLists] = useState();
@@ -32,8 +32,8 @@ const Recipes = () => {
   return (
     <Container className="mt-5">
       <div className="header">
-        <h1>Recipes</h1>
-        <RecipeModal />
+        <h1>Ingredients</h1>
+        <IngredientsModal />
       </div>
       <Table striped bordered hover>
         <thead>
