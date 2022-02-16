@@ -1,8 +1,9 @@
 import { useState, useEffect } from "react";
-import { Container, Table, Button } from "react-bootstrap";
+import { Container, Table } from "react-bootstrap";
 import { onSnapshot, query, where } from "firebase/firestore";
 import { recipeDocs } from "../utils/firebase";
 import { useAuth } from "../contexts/AuthContext";
+import RecipeModal from "../components/RecipeModal";
 
 const Recipes = () => {
   const [lists, setLists] = useState();
@@ -32,9 +33,7 @@ const Recipes = () => {
     <Container className="mt-5">
       <div className="header">
         <h1>Recipes</h1>
-        <Button variant="success">
-          <i className="bx bx-plus-medical"></i>
-        </Button>
+        <RecipeModal />
       </div>
       <Table striped bordered hover>
         <thead>
