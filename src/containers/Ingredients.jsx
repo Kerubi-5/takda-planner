@@ -13,7 +13,7 @@ const Recipes = () => {
     return lists?.map((list) => {
       return (
         <tr key={list.id}>
-          <td>{list.title}</td>
+          <td>{list.name}</td>
           <td>{list.quantity}</td>
         </tr>
       );

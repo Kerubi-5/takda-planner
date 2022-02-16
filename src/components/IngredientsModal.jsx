@@ -1,10 +1,27 @@
-import { useState } from "react";
+import { useState, useRef } from "react";
 import { Button, Modal, Form, FloatingLabel } from "react-bootstrap";
+import { addDoc } from "firebase/firestore";
+import { recipeDocs } from "./../utils/firebase";
+import { useAuth } from "../contexts/AuthContext";
 
 const RecipeModal = () => {
+  const { user } = useAuth();
   const [show, setShow] = useState(false);
+  const nameRef = useRef(null);
+  const quantityRef = useRef(null);
   const handleClose = () => setShow(false);
-  const handleAdd = () => {
+  const handleAdd = async () => {
+    try {
+      const docRef = await addDoc(recipeDocs, {
+        name: nameRef.current.value,
+        quantity: quantityRef.current.value,
+        uid: user.uid,
+      });
+
+      console.log("Successfully added a new ingredient", docRef.id);
+    } catch (err) {
+      console.log("Error in adding new ingredient: ", err);
+    }
     handleClose();
   };
 
@@ -20,10 +37,10 @@ const RecipeModal = () => {
 
         <Modal.Body>
           <FloatingLabel label="Item name" className="mb-3">
-            <Form.Control type="text" />
+            <Form.Control type="text" ref={nameRef} />
           </FloatingLabel>
           <FloatingLabel label="Quantity" className="mb-3">
-            <Form.Control type="number" />
+            <Form.Control type="number" ref={quantityRef} />
           </FloatingLabel>
         </Modal.Body>
 
