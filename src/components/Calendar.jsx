@@ -44,6 +44,8 @@ const MyCalendar = () => {
         let events = doc.data();
         events.start = events.start.toDate();
         events.end = events.end.toDate();
+        events.id = doc.id;
+
         return events;
       });
 
