@@ -1,7 +1,13 @@
 import { Container, Row, Col } from "react-bootstrap";
 import food from "../assets/food.png";
 
+import { useAuth } from "../contexts/AuthContext";
+import { Navigate } from "react-router-dom";
+
 const LandingPage = () => {
+  const { user } = useAuth();
+
+  if (user) return <Navigate to="/home" />;
   return (
     <>
       <Container fluid="md pt-5">
@@ -22,7 +28,6 @@ const LandingPage = () => {
           </Col>
         </Row>
       </Container>
-
       <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1440 320">
         <path
           fill="#f3f4f5"
@@ -78,7 +83,6 @@ const LandingPage = () => {
           </div>
         </Container>
       </div>
-
       <div className="container mt-3 mb-3 p-3">
         <footer className="d-flex flex-wrap justify-content-between align-items-center py-3 my-4 border-top">
           <div className="col-md-4 d-flex align-items-center">
