@@ -1,9 +1,14 @@
 import { Navbar, Container, Nav, Button } from "react-bootstrap";
+import { NavLink } from "react-router-dom";
 import { useAuth } from "../contexts/AuthContext";
 import notebookImg from "../assets/notebook.png";
 
 const AppBar = () => {
   const { user, googleLogin, logout } = useAuth();
+
+  const activeLink = (flag) => {
+    return flag ? "nav__link active" : "nav__link";
+  };
 
   return (
     <Navbar bg="light" expand="lg">
@@ -20,8 +25,18 @@ const AppBar = () => {
         <Navbar.Toggle aria-controls="basic-navbar-nav" />
         <Navbar.Collapse id="basic-navbar-nav">
           <Nav className="me-auto">
-            <Nav.Link href="/home">Home</Nav.Link>
-            <Nav.Link href="/recipes">Recipes</Nav.Link>
+            <NavLink
+              className={({ isActive }) => activeLink(isActive)}
+              to="/home"
+            >
+              Home
+            </NavLink>
+            <NavLink
+              className={({ isActive }) => activeLink(isActive)}
+              to="/recipes"
+            >
+              Recipes
+            </NavLink>
           </Nav>
 
           <Navbar.Text>
