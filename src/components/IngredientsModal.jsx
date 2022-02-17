@@ -1,20 +1,29 @@
-import { useState, useRef } from "react";
+import { useState } from "react";
 import { Button, Modal, Form, FloatingLabel } from "react-bootstrap";
-import { addDoc } from "firebase/firestore";
-import { recipeDocs } from "./../utils/firebase";
+import { addDoc, setDoc, doc } from "firebase/firestore";
+import { recipeDocs, db } from "./../utils/firebase";
 import { useAuth } from "../contexts/AuthContext";
 
-const RecipeModal = () => {
+const IngredientsModal = ({ show, setShow, id }) => {
   const { user } = useAuth();
-  const [show, setShow] = useState(false);
-  const nameRef = useRef(null);
-  const quantityRef = useRef(null);
+  const [name, setName] = useState("");
+  const [quantity, setQuantity] = useState(0);
   const handleClose = () => setShow(false);
   const handleAdd = async () => {
     try {
+      if (id) {
+        await setDoc(doc(db, "recipes", id), {
+          name: name,
+          quantity: quantity,
+          uid: user.uid,
+        });
+        handleClose();
+        return;
+      }
+
       const docRef = await addDoc(recipeDocs, {
-        name: nameRef.current.value,
-        quantity: quantityRef.current.value,
+        name: name,
+        quantity: quantity,
         uid: user.uid,
       });
 
@@ -27,9 +36,6 @@ const RecipeModal = () => {
 
   return (
     <>
-      <Button variant="success" onClick={() => setShow(true)}>
-        <i className="bx bx-plus-medical"></i>
-      </Button>
       <Modal show={show} onHide={handleClose}>
         <Modal.Header closeButton>
           <Modal.Title>Add an item</Modal.Title>
@@ -37,10 +43,18 @@ const RecipeModal = () => {
 
         <Modal.Body>
           <FloatingLabel label="Item name" className="mb-3">
-            <Form.Control type="text" ref={nameRef} />
+            <Form.Control
+              type="text"
+              onChange={(e) => setName(e.target.value)}
+              value={name}
+            />
           </FloatingLabel>
           <FloatingLabel label="Quantity" className="mb-3">
-            <Form.Control type="number" ref={quantityRef} />
+            <Form.Control
+              type="number"
+              onChange={(e) => setQuantity(e.target.value)}
+              value={quantity}
+            />
           </FloatingLabel>
         </Modal.Body>
 
@@ -49,7 +63,7 @@ const RecipeModal = () => {
             <i className="bx bxs-door-open"></i> Close
           </Button>
           <Button variant="success" onClick={handleAdd}>
-            <i className="bx bx-plus-circle"></i> Add
+            <i className="bx bx-plus-circle"></i> Confirm
           </Button>
         </Modal.Footer>
       </Modal>
@@ -57,4 +71,4 @@ const RecipeModal = () => {
   );
 };
 
-export default RecipeModal;
+export default IngredientsModal;
