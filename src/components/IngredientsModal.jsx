@@ -5,7 +5,6 @@ import { recipeDocs, db } from "./../utils/firebase";
 import { useAuth } from "../contexts/AuthContext";
 
 const IngredientsModal = ({ show, setShow, item }) => {
-  console.log(item);
   const { user } = useAuth();
   const [name, setName] = useState(item?.name);
   const [quantity, setQuantity] = useState(item?.quantity);
