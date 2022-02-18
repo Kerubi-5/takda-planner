@@ -1,7 +1,7 @@
 import { createContext, useContext } from "react";
 
 import { auth, googleProvider } from "../utils/firebase";
-import { signInWithPopup, signOut } from "firebase/auth";
+import { signInWithRedirect, signOut } from "firebase/auth";
 import { useAuthState } from "react-firebase-hooks/auth";
 
 export const AuthContext = createContext(null);
@@ -14,7 +14,7 @@ export const AuthProvider = ({ children }) => {
   const [user, loading] = useAuthState(auth);
 
   const googleLogin = () => {
-    signInWithPopup(auth, googleProvider)
+    signInWithRedirect(auth, googleProvider)
       .then((result) => {
         // ...
       })
