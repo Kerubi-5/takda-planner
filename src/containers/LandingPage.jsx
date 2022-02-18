@@ -3,11 +3,14 @@ import food from "../assets/food.png";
 
 import { useAuth } from "../contexts/AuthContext";
 import { Navigate } from "react-router-dom";
+import Loading from "../components/Loading";
 
 const LandingPage = () => {
-  const { user } = useAuth();
+  const { loading, user } = useAuth();
 
+  if (loading) return <Loading />;
   if (user) return <Navigate to="/home" />;
+
   return (
     <>
       <Container fluid="md pt-5">
