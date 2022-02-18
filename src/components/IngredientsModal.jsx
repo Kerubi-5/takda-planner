@@ -1,18 +1,19 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { Button, Modal, Form, FloatingLabel } from "react-bootstrap";
 import { addDoc, setDoc, doc } from "firebase/firestore";
 import { recipeDocs, db } from "./../utils/firebase";
 import { useAuth } from "../contexts/AuthContext";
 
-const IngredientsModal = ({ show, setShow, id }) => {
+const IngredientsModal = ({ show, setShow, item }) => {
+  console.log(item);
   const { user } = useAuth();
-  const [name, setName] = useState("");
-  const [quantity, setQuantity] = useState(0);
+  const [name, setName] = useState(item?.name);
+  const [quantity, setQuantity] = useState(item?.quantity);
   const handleClose = () => setShow(false);
   const handleAdd = async () => {
     try {
-      if (id) {
-        await setDoc(doc(db, "recipes", id), {
+      if (item) {
+        await setDoc(doc(db, "recipes", item.id), {
           name: name,
           quantity: quantity,
           uid: user.uid,
@@ -33,6 +34,11 @@ const IngredientsModal = ({ show, setShow, id }) => {
     }
     handleClose();
   };
+
+  useEffect(() => {
+    setName(item.name ?? " ");
+    setQuantity(item.quantity ?? 0);
+  }, [item.name, item.quantity]);
 
   return (
     <>

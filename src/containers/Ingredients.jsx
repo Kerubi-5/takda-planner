@@ -11,8 +11,8 @@ const Recipes = () => {
   const [lists, setLists] = useState();
   const { user } = useAuth();
 
-  const editModal = (id) => {
-    setItemId(id);
+  const editModal = (list) => {
+    setItemId(list);
     setShow(true);
   };
 
@@ -35,7 +35,7 @@ const Recipes = () => {
             <Button
               variant="primary"
               className="mb-2"
-              onClick={() => editModal(list.id)}
+              onClick={() => editModal(list)}
             >
               <i className="bx bx-edit-alt"></i>
             </Button>
@@ -64,7 +64,7 @@ const Recipes = () => {
         <Button variant="success" onClick={() => addModal()}>
           <i className="bx bx-plus-medical"></i>
         </Button>
-        <IngredientsModal show={show} setShow={setShow} id={itemId} />
+        <IngredientsModal show={show} setShow={setShow} item={itemId} />
       </div>
       <Table striped bordered hover>
         <thead>
