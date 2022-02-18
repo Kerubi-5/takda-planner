@@ -35,9 +35,9 @@ const IngredientsModal = ({ show, setShow, item }) => {
   };
 
   useEffect(() => {
-    setName(item.name ?? " ");
-    setQuantity(item.quantity ?? 0);
-  }, [item.name, item.quantity]);
+    setName(item?.name ?? " ");
+    setQuantity(item?.quantity ?? 0);
+  }, [item?.name, item?.quantity]);
 
   return (
     <>
