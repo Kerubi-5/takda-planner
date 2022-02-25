@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import { Container, Table, Button } from "react-bootstrap";
+import { Container, Table, Button, Card } from "react-bootstrap";
 import { onSnapshot, query, where, deleteDoc, doc } from "firebase/firestore";
 import { recipeDocs, db } from "../utils/firebase";
 import { useAuth } from "../contexts/AuthContext";
@@ -9,6 +9,7 @@ const Recipes = () => {
   const [itemId, setItemId] = useState();
   const [show, setShow] = useState(false);
   const [lists, setLists] = useState();
+  const [recipes, setRecipes] = useState([]);
   const { user } = useAuth();
 
   const editModal = (list) => {
@@ -47,6 +48,21 @@ const Recipes = () => {
       );
     });
   };
+
+  const renderRecipes = () => {
+    return recipes?.map((list) => {
+      return (
+        <Card className="mb-3" key={list.id}>
+          <Card.Img variant="top" src={list.image} />
+          <Card.Body>
+            <Card.Title>{list.title}</Card.Title>
+            <Button variant="primary">Learn more</Button>
+          </Card.Body>
+        </Card>
+      );
+    });
+  };
+
   useEffect(() => {
     const userQuery = query(recipeDocs, where("uid", "==", user.uid));
 
@@ -57,6 +73,22 @@ const Recipes = () => {
     return unsub;
   }, [user.uid]);
 
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  useEffect(async () => {
+    fetch(
+      `https://api.spoonacular.com/recipes/findByIngredients?apiKey=f620e36196544eebbacaeea1e53c0439&ingredients=${lists
+        ?.map((item) => item.name.toLowerCase())
+        .join(",+")}
+        &number=2`,
+      {
+        method: "GET",
+        headers: new Headers({ "content-type": "application/json" }),
+      }
+    )
+      .then((response) => response.json())
+      .then((data) => setRecipes(data));
+  }, [lists]);
+
   return (
     <Container className="mt-5">
       <div className="header">
@@ -66,7 +98,7 @@ const Recipes = () => {
         </Button>
         <IngredientsModal show={show} setShow={setShow} item={itemId} />
       </div>
-      <Table striped bordered hover>
+      <Table className="mb-5" striped bordered hover>
         <thead>
           <tr>
             <th>Item name</th>
@@ -75,6 +107,10 @@ const Recipes = () => {
         </thead>
         <tbody>{renderList()}</tbody>
       </Table>
+      <div>
+        <h1>Available Recipes</h1>
+        {renderRecipes()}
+      </div>
     </Container>
   );
 };
