@@ -79,7 +79,7 @@ const Recipes = () => {
       `https://api.spoonacular.com/recipes/findByIngredients?apiKey=f620e36196544eebbacaeea1e53c0439&ingredients=${lists
         ?.map((item) => item.name.toLowerCase())
         .join(",+")}
-        &number=2`,
+        &number=4`,
       {
         method: "GET",
         headers: new Headers({ "content-type": "application/json" }),
@@ -109,7 +109,7 @@ const Recipes = () => {
       </Table>
       <div>
         <h1>Available Recipes</h1>
-        {renderRecipes()}
+        <div className="grid">{renderRecipes()}</div>
       </div>
     </Container>
   );
